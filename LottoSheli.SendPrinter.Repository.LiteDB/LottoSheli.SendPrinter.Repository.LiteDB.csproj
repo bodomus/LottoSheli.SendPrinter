@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Platforms>AnyCPU;x86</Platforms>
+    <BaseOutputPath>..\output\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Entity\LottoSheli.SendPrinter.Entity.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Repository\LottoSheli.SendPrinter.Repository.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Settings\LottoSheli.SendPrinter.Settings.csproj" />
+  </ItemGroup>
+
+</Project>

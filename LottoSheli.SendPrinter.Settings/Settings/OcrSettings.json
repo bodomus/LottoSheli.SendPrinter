@@ -1,0 +1,63 @@
+{
+  "V2": {
+    "HorBlobsFillThreshold": 50,
+    "HorBlobsHeightThreshold": 12,
+    "MaxGapSize": 50,
+    "BitmapCropMargin": 80,
+    "UserIdScaleFactor": 5,
+    "UserIdBlobNormalWidth": 2495,
+    "UserIdBlobNormalHeight": 135,
+    "UserIdLength": 11,
+    "BarcodeSpaceWidthThreshold": 30,
+    "BarcodeMinNumberOfSpaces": 20,
+    "BarcodeNumOfSpacesToScan": 5,
+    "BarcodeExpectedDataLength": 20,
+    "TopBarcodeMinDataLength": 22,
+    "TopOffsetThreshold": 0,
+    "MinExtraDigitSize": 20,
+    "ExtraScaleFactor": 2,
+    "ExtraMarkerAspect": 0.545,
+    "ExtraMarkerAngleTolerance": 3,
+    "ExtraBlobFilterMinSize": 70,
+    "UserIdBoxIndex": 1,
+    "CropLineBoxIndex": 6,
+    "UserIdContrastApplyLevel": 70,
+    "UserIdPaddingX": 25,
+    "UserIdPaddingY": 6,
+    "UserIdMaximalHeight": 25,
+    "UserIdMinimallHeight": 11,
+    "UserIdMaximalWidth": 196,
+    "UserIdMinimallWidth": 134,
+    "TessnetPath": "tesseract\\v2\\tessdata",
+    "TessnetV4Path": "tesseract\\v4\\tessdata",
+    "ExtraMarkerHeightBottomLimit": 28,
+    "ExtraMarkerWidthBottomLimit": 310,
+    "ExtraMarkerWidthTopLimit": 340,
+    "TicketThreshold": 100,
+    "NationalIdThreshold": 115,
+    "BottomCropLineBoxReverseIndex": 3,
+    "BottomCropLineOffset": 110,
+    "BottomBarcodeHeight": 70,
+    "BottomBarcodeYOffset": 130,
+    "BottomBarcodeXMargin": 30,
+    "RecognitionStrategies": {
+      "RecognizeSlipIdPreprocessStrategyName": "GrayDividingBlenderBarcodePreprocessStrategy"
+    },
+    "SlipTemplatePath": "templates",
+    "GoogleOcrSettings": {
+      "Enabled": false,
+      "RecognizeLottoEnabled": true,
+      "RecognizeChanceEnabled": true,
+      "Recognize777Enabled": true,
+      "Recognize123Enabled": true,
+      "TicketThreshold": 100,
+      "TicketThresholdEnabled": false,
+      "Inverted": false,
+      "CredentialsJSON": "{ \r\n  \"type\": \"service_account\", \r\n  \"project_id\": \"ocr-lottosheli\", \r\n  \"private_key_id\": \"92eaa5c4b09cc2ab51c2add2fcffaffeee66f4f9\", \r\n  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCtTtqG1fvhAFr2\\nSwUKVFXlAAEnyVu32M9iQ0QrSbM3KNzlgX++5/7IITLTR1Nq0Bl71J1aioTg4iey\\neQW0EOF55aKevlXuxcKzDYzi0dA+EVw9P2lI5xD0yF1A+NblNZIiJ8oLvVypGVSV\\nImdAk/Wl/i/+A6iPSJExtMBTYAzgULrVp46bGSl9R9tObxbhohr3B5Pq2rWiqmUI\\nMB3U9df/KjNub3zf7/SDLPWnv8TifCIvoRxPwaJvpqnznydJ6WcwY2rZnx9eURZs\\nyHT+AtiO+oqjwi8GxjvgVoPSZeB13D+iMN7fCZDpJk4D3hnFnheSicoxvp9jEYnx\\nDpg4NZJtAgMBAAECggEAJZDBileIrMk0bk1tjsMgCS66kWKyiEOtFBoLhSyI9axc\\nUT0EMR+9WKjliOldefoYhABeiTkcO1iaDTPxWgoMrazqVmlgXAyuurv1rVaYQlPl\\n//qmOiCnyr9Bg2tMvUsi3VdtkqTdmGO+s0LNSbConu3dfjxRxZkPq8wHoirgL6DE\\nxfS1w2Gejy6Ha7z/zKllwuyh4wpgVejGdj9bX5R9qX9AlmjVJcOueNFhB8cj7QPL\\nJ4hq+dr9FcNIs8SYUV/gwYVM8/wI+3rlDHvKQBNBNJO7nggaLt1Hk45pSSckNUZ2\\nDy9+ug6uAI3KD3zFGtFA7dpoi+4ui+/cMhlvUvMiMQKBgQDT97A/sDqwvPlSydEX\\nDO2E0MjatseROBcUh2Pb0icTw4n/DYNtILqGfMdRcFJiLxg5rvfywN6JijG5zx3c\\nTOvk7rXlyXVXiQY49GxgbXZ7RbfHnKKobex9lPF2xtr/uNBYo4GqURWZ6UdP1vMC\\nrIfPtp0+JyxudNTUUVUPt5/8hQKBgQDRT0ZKi7E2aOcEiPiClKnf0r7pXKdcGL0+\\nOq5CaJgDiFWj8eLQzBHlkYzipemAuKO1jQEGRIqUB9NXujqO5tIX6lP9sRxUEJWZ\\nNUULh4mhDtG2HrDfLkq8vRczx81Z/ttY4tmFR4u/SrLkmTFTfpNu9EFrbQRGUdLs\\nNflbTFd2yQKBgQC8MFa5ZLPmwBA3cViCt4aU+WypycdK5dqP7lg5DM6G3H9DA3Ng\\nysLvrg6j/i4WX6uJYw9d5eBtilT1m63uLhjtKwYxmfflHJF6tX8W6Xhcn5w3y5ga\\nI2XoZPkwNAKxMRtA5wGy/cRI3nTirHsaL6VwQ7g9OzhWZMGkMwVrK+MNpQKBgCie\\nR7fDsBos9Vft9LvyeZzT2vSSZG/85Qykepisj4Nv+56bHDcEwxxXyI1bQRsXub1L\\npb0/o9ziP+MwYpjEtlSpxq7epe6yYTWgHswD+3Nj2tKK1iwZYauKzmvgBDvIt2xi\\naW/x2G7A4kJ2cBoR4C6R+/gK6d9zlYj9WGydPgPxAoGAVipHrlv57D+lyATvpQLn\\nMwQ5QCfjpqO3Z4xNDwjl9RiIqu3gJRGakrb+4QQWhBs68raEjtU2toYdppgWULnD\\nZDMKvo5Wzo0ffnmqdov8dVOuyI2ySZI7f6YS5UgxciyE+Qae05rpljO1CjwMpmyi\\nTloW5vuvFZUVt5dztDHwJ0E=\\n-----END PRIVATE KEY-----\\n\", \r\n  \"client_email\": \"ocr-lottosheli@ocr-lottosheli.iam.gserviceaccount.com\", \r\n  \"client_id\": \"114864346224231283025\", \r\n  \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\", \r\n  \"token_uri\": \"https://oauth2.googleapis.com/token\", \r\n  \"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\", \r\n  \"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/ocr-lottosheli%40ocr-lottosheli.iam.gserviceaccount.com\"\r\n}"
+    },
+    "UnrecognizedScanPath": "unrecognized-scans",
+    "Description": "new ticket design"
+  }
+}
+
+

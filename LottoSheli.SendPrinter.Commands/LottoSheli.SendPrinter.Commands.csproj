@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Platforms>AnyCPU;x86</Platforms>
+    <BaseOutputPath>..\output\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\gen\version\AssemblyVersion.cs" Link="Properties\AssemblyVersion.cs" />
+    <Compile Include="..\..\LottoSendPrinter.Common\Properties\CommonAssemblyInfo.cs" Link="Properties\CommonAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ZXing.Net" Version="0.16.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AForge.Net\AForge.Imaging\AForge.Imaging.csproj" />
+    <ProjectReference Include="..\..\AForge.Net\AForge.Math\AForge.Math.csproj" />
+    <ProjectReference Include="..\..\AForge.Net\AForge\AForge.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Core\LottoSheli.SendPrinter.Core.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.DTO\LottoSheli.SendPrinter.DTO.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Entity\LottoSheli.SendPrinter.Entity.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Printer\LottoSheli.SendPrinter.Printer.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Remote\LottoSheli.SendPrinter.Remote.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Repository.LiteDB\LottoSheli.SendPrinter.Repository.LiteDB.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Repository\LottoSheli.SendPrinter.Repository.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Settings\LottoSheli.SendPrinter.Settings.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.SlipReader\LottoSheli.SendPrinter.SlipReader.csproj" />
+  </ItemGroup>
+
+</Project>

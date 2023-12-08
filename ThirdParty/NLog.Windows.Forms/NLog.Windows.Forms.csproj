@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <AssemblyTitle>NLog.Windows.Forms</AssemblyTitle>
+    <Company>NLog</Company>
+    <Product>NLog.Windows.Forms</Product>
+    <Description>Extend NLog with targets for Windows Forms applications. For example: writing to a richtextbox or raising alert popups. </Description>
+    <CurrentYear>$([System.DateTime]::Now.ToString(yyyy))</CurrentYear>
+    <Copyright>Copyright (c) 2014-$(CurrentYear) NLog Project - https://nlog-project.org/ </Copyright>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Authors>NLog</Authors>
+    <PackageIcon>N.png</PackageIcon>
+    <PackageId>NLog.Windows.Forms</PackageId>
+    <PackageProjectUrl>https://nlog-project.org</PackageProjectUrl>
+    <PackageTags>nlog target forms windows richtextbox</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <DebugType Condition=" '$(Configuration)' == 'Debug' ">Full</DebugType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>NLog.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/NLog/NLog.Windows.Forms.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+
+    <PackageReleaseNotes>
+Added support for .NET Core 3.1 and .NET 5 (#42) (@weltkante, @304NotModified)
+    </PackageReleaseNotes>
+  </PropertyGroup>
+	
+   <PropertyGroup>
+      <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+      <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+      <EnableNETAnalyzers>false</EnableNETAnalyzers>
+      <Nullable>enable</Nullable>
+   </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net35' or  '$(TargetFramework)' == 'net5.0-windows' ">
+    <!-- Links aren't support for .NET Core 3.x, but does work for .NET 5 and .NET Framework-->
+    <DefineConstants>$(DefineConstants);LINKS_SUPPORTED</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="4.7.10" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\NLog.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NLog.snk" />
+    <None Include="N.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+  <Target Name="DownloadMissingContent" BeforeTargets="GenerateNuspec">
+    <DownloadFile SourceUrl="https://nlog-project.org/N.png" DestinationFolder="$(MSBuildThisFileDirectory)" />
+  </Target>
+</Project>

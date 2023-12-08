@@ -1,0 +1,9 @@
+{
+  "UpdateRequired": true,
+  "BlackList": [ "51591931" ],
+  "UseNewCreditMode": true,
+  "DefaultPrinterId": 0,
+  "UseSimplePaperSettings": false,
+  "UserIDs": [ "4358" ],
+  "ZabbixUrl": "172.31.41.41"
+}

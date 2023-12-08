@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Platforms>AnyCPU;x86</Platforms>
+    <BaseOutputPath>..\output\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Parsers\**" />
+    <EmbeddedResource Remove="Parsers\**" />
+    <None Remove="Parsers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Core\LottoSheli.SendPrinter.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Parsers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.17" />
+  </ItemGroup>
+
+</Project>
