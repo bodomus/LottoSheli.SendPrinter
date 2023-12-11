@@ -1,36 +1,23 @@
-using LottoSheli.SendPrinter.Settings;
-using LottoSheli.SendPrinter.App.Controls;
-using LottoSheli.SendPrinter.Core.Enums;
-using LottoSheli.SendPrinter.Commands.Base;
-using LottoSheli.SendPrinter.Commands.Print;
-using LottoSheli.SendPrinter.Printer;
-using LottoSheli.SendPrinter.Printer.Devices;
-using LottoSheli.SendPrinter.Scanner;
-using LottoSheli.SendPrinter.Scanner.Panini;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using LottoSheli.SendPrinter.Commands.Remote;
-using LottoSheli.SendPrinter.Commands.Draws;
-using LottoSheli.SendPrinter.Core.Controls;
-using LottoSheli.SendPrinter.Repository;
+
+using Microsoft.Extensions.Logging;
+
 using LottoSheli.SendPrinter.App.Controls.Basic;
-using LottoSheli.SendPrinter.Scanner.V2;
-using LottoSheli.SendPrinter.Commands.ReaderWorkflow;
-using LottoSheli.SendPrinter.Remote;
-using LottoSheli.SendPrinter.Commands.Tasks.Remote;
-using LottoSheli.SendPrinter.Commands.Tasks;
 using LottoSheli.SendPrinter.Core;
-using LottoSheli.SendPrinter.Entity.Enums;
+using LottoSheli.SendPrinter.Core.Controls;
+using LottoSheli.SendPrinter.Core.Enums;
 using LottoSheli.SendPrinter.Core.Monitoring;
+using LottoSheli.SendPrinter.Entity.Enums;
+using LottoSheli.SendPrinter.Printer;
+using LottoSheli.SendPrinter.Printer.Devices;
+using LottoSheli.SendPrinter.Remote;
+using LottoSheli.SendPrinter.Repository;
+using LottoSheli.SendPrinter.Scanner;
+using LottoSheli.SendPrinter.Scanner.Panini;
+using LottoSheli.SendPrinter.Scanner.V2;
+using LottoSheli.SendPrinter.Settings;
 
 namespace LottoSheli.SendPrinter.App
 {
@@ -44,9 +31,6 @@ namespace LottoSheli.SendPrinter.App
         private readonly ILoggerFactory _loggerFactory;
         private readonly ISettings _settings;
         private readonly IOcrSettings _ocrSettings;
-        private readonly ICommandFactory _commandFactory;
-        private readonly IRecognitionJobFactory _jobFactory;
-        private readonly IRecognitionJobQueue _jobQueue;
         private IPrinterDevice _printerDevice;
         private readonly IUserRepository _users;
         private ISessionRepository _sessionsRepo;
@@ -59,37 +43,19 @@ namespace LottoSheli.SendPrinter.App
         private UserControl _activeContent;
 
         public MainView(RightToLeft rightToLeftDirection, 
-            ScannerMode scannerMode, 
-            ILoggerFactory loggerFactory, 
-            Control logControl, 
-            ISettings settings
-            //,IMonitoringService monitoringService
-            ,ISessionRepository sessionsRepo,
-            IUserRepository users
-            //,IPrinterDevice printerDevice, 
-            //IOcrSettings ocrSettings
-            //,ICommandFactory commandFactory
-            //,IRecognitionJobFactory jobFactory = null, 
-            //,ISendingQueue sendingQueue = null
-            //,IRecognitionJobQueue jobQueue = null
-            //,ISequenceService sequenceService = null
-            //IPrinterQueueService printerQueueService = null
+            ScannerMode scannerMode
+            ,ILoggerFactory loggerFactory
+            ,Control logControl
+            ,ISettings settings
+            ,ISessionRepository sessionsRepo
+            ,IUserRepository users
             )
         {
             _loggerFactory = loggerFactory;
             _settings = settings;
             _logger = _loggerFactory.CreateLogger<MainView>();
-            //_printerDevice = printerDevice;
-            //_ocrSettings = ocrSettings;
-            //_commandFactory = commandFactory;
-            //_jobFactory = jobFactory;
-            //_jobQueue = jobQueue;
             _users = users;
             _sessionsRepo = sessionsRepo;
-            //_sendingQueue = sendingQueue;
-            //_sequenceService = sequenceService;
-            //_printerQueueService = printerQueueService;
-            //_monitoringService = monitoringService;
 
             if (rightToLeftDirection == RightToLeft.Yes)
             {
@@ -137,15 +103,8 @@ namespace LottoSheli.SendPrinter.App
             FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
             Text = $"Lotto Send Printer V.{fileVersion.FileVersion}";
 
-            //_printerDevice.PrinterValidationFailed += PrinterDevice_PrinterValidationFailed;
-
             _syncContext = SynchronizationContext.Current;
-
             _logger.LogInformation("Started LottoSendPrinter{0}Version info:", Environment.NewLine);
-
-            //ucLeftMenu.InitCommands(_commandFactory);
-
-            LoadContent();
         }
 
         #region IPrinterDevice Events
@@ -160,18 +119,6 @@ namespace LottoSheli.SendPrinter.App
             }, null);
         }
 #endregion IPrinterDevice Events
-
-        private void LoadContent()
-        {
-            
-            foreach (var contrl in _subControls)
-                pnlContent.Controls.Add(contrl.Value);
-            
-            InitConnectionStateControl(Role.D7);
-            InitConnectionStateControl(Role.D9);
-            //_ = _commandFactory.ExecuteCommandAsync<IResetConnectionCommand>()
-            //    .ContinueWith((ar) => _sendingQueue.Start());
-        }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

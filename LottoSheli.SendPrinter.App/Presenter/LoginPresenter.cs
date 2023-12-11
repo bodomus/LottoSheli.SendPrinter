@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using LottoSheli.SendPrinter.Core.Enums;
 using LottoSheli.SendPrinter.App.ui.login;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace LottoSheli.SendPrinter.App.Presenter
@@ -11,16 +12,16 @@ namespace LottoSheli.SendPrinter.App.Presenter
         private ILoginView view;
 
         private IUserRepository _usersRepository;
-        public LoginPresenter(ILoginView loginView, IUserRepository usersRepository)
+        public LoginPresenter(ILoginView loginView, IServiceProvider serviceProvider)
         {
             view = loginView;
-            _usersRepository = usersRepository;
-            loginView.Presenter = this;
+            _usersRepository = serviceProvider.GetRequiredService<IUserRepository>();
+            //loginView.Presenter = this;
             view.ModeSelectedIndex = 1;
             view.UcLoginComponent.RightToLeftDirectionCheckboxVisible = false;
         }
 
-        public (RightToLeft rtol, ScannerMode mode) GetResult()
+        public (RightToLeft RightToLeft, ScannerMode Mode) GetResult()
         {
             return (view.UcLoginComponent.RightToLeft, view.ScannerMode);
         }

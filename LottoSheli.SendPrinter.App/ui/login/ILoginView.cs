@@ -14,8 +14,6 @@ namespace LottoSheli.SendPrinter.App.ui.login
     {
         int ModeSelectedIndex { get; set; }
 
-        //int VersionSelectedIndex { get; set; }
-
         ScannerMode ScannerMode { get; }
 
         UCLogin UcLoginComponent { get; }
@@ -26,16 +24,10 @@ namespace LottoSheli.SendPrinter.App.ui.login
 
         void RejectDialog();
 
-        //public string Password { get; set; }
-        //public string Login { get; set; }
-
-        //public Color MessageForeColor { get; set; }
-
         event EventHandler<AuthorizationEventArgs> UpdateCredential;
 
         event EventHandler<AuthorizationEventArgs> ReceiveCredential;
 
-        LoginPresenter Presenter { get; set; }
-
+        LoginPresenter Presenter { get; }
     }
 }

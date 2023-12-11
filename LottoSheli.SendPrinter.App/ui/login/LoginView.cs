@@ -3,7 +3,6 @@ using LottoSheli.SendPrinter.App.ui.login;
 using LottoSheli.SendPrinter.Core;
 using LottoSheli.SendPrinter.Core.Controls;
 using LottoSheli.SendPrinter.Core.Enums;
-using LottoSheli.SendPrinter.Repository;
 using LottoSheli.SendPrinter.Settings;
 
 namespace LottoSheli.SendPrinter.App.View
@@ -15,13 +14,18 @@ namespace LottoSheli.SendPrinter.App.View
     {
         public event EventHandler<AuthorizationEventArgs> UpdateCredential;
         public event EventHandler<AuthorizationEventArgs> ReceiveCredential;
+        private LoginPresenter _presenter;
 
-        public LoginView()
+        public LoginView(IServiceProvider provider)
         {
             InitializeComponent();
 
             CenterToScreen();
+            _presenter = new LoginPresenter(this, provider);
+
         }
+
+        public LoginPresenter Presenter => _presenter;
 
         public ScannerMode ScannerMode => (ScannerMode)cbMode.SelectedIndex;
 
@@ -32,17 +36,17 @@ namespace LottoSheli.SendPrinter.App.View
 
         private void ucLogin_Authorized(object sender, EventArgs e)
         {
-            Presenter.Autorized();
+            _presenter.Autorized();
         }
 
         private void ucLogin_Rejected(object sender, EventArgs e)
         {
-            Presenter.Rejected();
+            _presenter.Rejected();
         }
 
         private void ucLogin_ReceiveCreatentials(object sender, AuthorizationEventArgs e)
         {
-            var creds = Presenter.ReceiveCredential();
+            var creds = _presenter.ReceiveCredential();
             e.Login = creds.Login;
             e.Password = creds.Password;
         }
@@ -82,7 +86,6 @@ namespace LottoSheli.SendPrinter.App.View
             Application.Exit();
         }
 
-        public LoginPresenter Presenter { get; set; }
         UCLogin ILoginView.UcLoginComponent => this.ucLogin;
     }
 }

@@ -1,18 +1,14 @@
-﻿using FontAwesome.Sharp;
-using LottoSheli.SendPrinter.App.Controls.Basic;
-using LottoSheli.SendPrinter.App.EventArg;
-using LottoSheli.SendPrinter.Commands.Base;
-using LottoSheli.SendPrinter.Commands.OCR;
-using LottoSheli.SendPrinter.DTO;
-using LottoSheli.SendPrinter.Entity;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+
+using FontAwesome.Sharp;
+
+using LottoSheli.SendPrinter.App.Controls.Basic;
+using LottoSheli.SendPrinter.App.EventArg;
+using LottoSheli.SendPrinter.DTO;
+using LottoSheli.SendPrinter.Entity;
 
 namespace LottoSheli.SendPrinter.App.Controls
 {
@@ -125,14 +121,6 @@ namespace LottoSheli.SendPrinter.App.Controls
                 int nextIndex = (currentIndex + 1) % _menuItems.Count;
                 _menuItems[nextIndex].Selected = true;
             }
-        }
-
-        public void InitCommands(ICommandFactory commandFactory)
-        {
-            _ticketTaskDataSource = commandFactory.ExecuteCommand<ISubscribeEntityStateCommand<TicketTask>, SubscribeEntityStateCommandData<TicketTask>, EntityObservableCollection<TicketTask>>(
-                new SubscribeEntityStateCommandData<TicketTask> { FillWithActualState = true, SafeUpdateStrategy = SafeQeueuCollectionUpdate });
-
-            SafeQeueuCollectionUpdate(NotifyCollectionChangedAction.Reset, null, null);
         }
 
         private void SafeQeueuCollectionUpdate(NotifyCollectionChangedAction action, IEnumerable<TicketTask> affectedEnitites, Action<NotifyCollectionChangedAction, IEnumerable<TicketTask>> invoke)
