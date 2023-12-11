@@ -7,6 +7,8 @@ using LottoSheli.SendPrinter.Settings;
 using LottoSheli.SendPrinter.Repository;
 using LottoSheli.SendPrinter.Core.Monitoring;
 using System.Reflection;
+using LottoSheli.SendPrinter.App.Presenter;
+using LottoSheli.SendPrinter.App.View;
 
 namespace LottoSheli.SendPrinter.App
 {
@@ -36,49 +38,58 @@ namespace LottoSheli.SendPrinter.App
                         ISettings settings = settingsFactory.GetSettings();
 
                         IUserRepository users = objectsFactory.GetUserRepository();
+                        object printer = new();
                         //IPrinterDevice printer = objectsFactory.GetPrinterFactory().GetPrinterDevice();
                         ISessionRepository sessionRepository = objectsFactory.GetSessionRepository();
 
                         Application.SetHighDpiMode(HighDpiMode.SystemAware);
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);
+
+                        LoginView formLogin = new LoginView();
+                        LoginPresenter mainPresenter = new LoginPresenter(formLogin, users);
+
+                        Application.Run(formLogin);
+
                         //var formLogin = new FormLogin(users);
-
+                        var f = formLogin.Presenter.GetResult();
+                        var m = f;
                         //Application.Run(formLogin);
-                        //if (formLogin.DialogResult == DialogResult.OK)
-                        //{
-                        //    IOcrSettings ocrSettings = settingsFactory.GetOcrSettings();
-                        //    ICommonSettings commonSettings = settingsFactory.GetCommonSettings();
-                        //    IMonitoringService monService = objectsFactory.GetService<IMonitoringService>();
-                        //    IPerformanceRecordScheduler perfScheduler = objectsFactory.GetService<IPerformanceRecordScheduler>();
-                        //    IZabbixPerformanceRecorder zbxRecorder = objectsFactory.GetService<IZabbixPerformanceRecorder>();
-                        //    zbxRecorder.StationId = settings.StationId;
-                        //    zbxRecorder.ZabbixUrl = commonSettings.ZabbixUrl;
-                        //    perfScheduler.AddRecorder(zbxRecorder);
+                        if (formLogin.DialogResult == DialogResult.OK)
+                        {
+                            IOcrSettings ocrSettings = settingsFactory.GetOcrSettings();
+                            ICommonSettings commonSettings = settingsFactory.GetCommonSettings();
+                            //IMonitoringService monService = objectsFactory.GetService<IMonitoringService>();
+                            //IPerformanceRecordScheduler perfScheduler = objectsFactory.GetService<IPerformanceRecordScheduler>();
+                            //IZabbixPerformanceRecorder zbxRecorder = objectsFactory.GetService<IZabbixPerformanceRecorder>();
+                            //zbxRecorder.StationId = settings.StationId;
+                            //zbxRecorder.ZabbixUrl = commonSettings.ZabbixUrl;
+                            //perfScheduler.AddRecorder(zbxRecorder);
 
-                        //    ILoggerPerformanceRecorder logRecorder = objectsFactory.GetService<ILoggerPerformanceRecorder>();
-                        //    perfScheduler.AddRecorder(logRecorder);
-                        //    perfScheduler.Initialize(30 * 1000);
-                        //    var formMain = new FormMain(
-                        //        formLogin.RightToLeft,
-                        //        formLogin.ScannerMode,
-                        //        objectsFactory.GetLoggerFactory(),
-                        //        objectsFactory.GetLoggerFactory().CreateLoggerUIControl(),
-                        //        settings,
-                        //        printer,
-                        //        ocrSettings,
-                        //        objectsFactory.GetCommandFactory(),
-                        //        users,
-                        //        sessionRepository,
-                        //        objectsFactory.GetRecognitionJobFactory(),
-                        //        objectsFactory.GetSendingQueue(),
-                        //        objectsFactory.GetRecognitionJobQueue(),
-                        //        objectsFactory.GetSequenceService(),
-                        //        objectsFactory.GetService<IPrinterQueueService>(),
-                        //        monService);
+                            //ILoggerPerformanceRecorder logRecorder = objectsFactory.GetService<ILoggerPerformanceRecorder>();
+                            //perfScheduler.AddRecorder(logRecorder);
+                            //perfScheduler.Initialize(30 * 1000);
+                            var formMain = new MainView(
+                                formLogin.RightToLeft,
+                                formLogin.ScannerMode,
+                                objectsFactory.GetLoggerFactory(),
+                                objectsFactory.GetLoggerFactory().CreateLoggerUIControl(),
+                                settings
+                                //,monService,
+                                ,sessionRepository
+                                ,users
+                                //,null
+                                //,ocrSettings
+                                //,objectsFactory.GetCommandFactory()
+                                //,objectsFactory.GetRecognitionJobFactory()
+                                //,objectsFactory.GetSendingQueue()
+                                //,objectsFactory.GetRecognitionJobQueue()
+                                //,objectsFactory.GetSequenceService()
+                                //,objectsFactory.GetService<IPrinterQueueService>()
+                                );
 
-                        //    Application.Run(formMain);
-                        //}
+                            Application.Run(formMain);
+                        }
                     }
                 }
                 finally
@@ -86,9 +97,6 @@ namespace LottoSheli.SendPrinter.App
                     Mutex.ReleaseMutex();
                 }
             }
-
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
         }
     }
 }

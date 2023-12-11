@@ -39,6 +39,8 @@ namespace LottoSheli.SendPrinter.Core.Controls
         {
             InitializeComponent();
             pass_txtbx.KeyDown += Pass_txtbx_KeyDown;
+            pass_txtbx.Text = "123";
+            login_txtbx.Text = "123";
         }
 
         /// <summary>

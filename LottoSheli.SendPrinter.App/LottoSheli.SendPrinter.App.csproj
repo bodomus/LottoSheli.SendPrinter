@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controls\UCScanQueue.cs" />
+    <Compile Remove="Controls\UCScanQueue.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Controls\UCScanQueue.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
@@ -16,7 +25,37 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LottoSheli.SendPrinter.Bootstraper\LottoSheli.SendPrinter.Bootstraper.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.DTO\LottoSheli.SendPrinter.DTO.csproj" />
     <ProjectReference Include="..\LottoSheli.SendPrinter.Settings\LottoSheli.SendPrinter.Settings.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\LeftMenu\" />
+    <Folder Include="DllStub\" />
+    <Folder Include="EventArg\" />
+    <Folder Include="Attributes\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Properties\" />
+    <Folder Include="ui\main\main\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="LottoSheli.SendPrinter.Commands">
+      <HintPath>DllStub\LottoSheli.SendPrinter.Commands.dll</HintPath>
+    </Reference>
+    <Reference Include="LottoSheli.SendPrinter.OCR">
+      <HintPath>DllStub\LottoSheli.SendPrinter.OCR.dll</HintPath>
+    </Reference>
+    <Reference Include="LottoSheli.SendPrinter.Printer">
+      <HintPath>DllStub\LottoSheli.SendPrinter.Printer.dll</HintPath>
+    </Reference>
+    <Reference Include="LottoSheli.SendPrinter.Remote">
+      <HintPath>DllStub\LottoSheli.SendPrinter.Remote.dll</HintPath>
+    </Reference>
+    <Reference Include="LottoSheli.SendPrinter.Scanner">
+      <HintPath>DllStub\LottoSheli.SendPrinter.Scanner.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

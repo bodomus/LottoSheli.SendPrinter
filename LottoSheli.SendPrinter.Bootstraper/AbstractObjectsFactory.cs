@@ -127,6 +127,7 @@ namespace LottoSheli.SendPrinter.Bootstraper
         //    services.AddSingleton<ISequenceService, SequenceService>();
         //}
 
+
         private void InitStorage(IServiceCollection services)
         {
             services.AddSingleton<IRepositoryFactory>(new DependencyInjectionRepositoryFactory(GetServiceProvider))
