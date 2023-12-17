@@ -1,10 +1,8 @@
-﻿using AForge.Imaging.Filters;
-using LottoSheli.SendPrinter.Core.Monitoring;
+﻿using LottoSheli.SendPrinter.Core.Monitoring;
 using LottoSheli.SendPrinter.Entity;
 using LottoSheli.SendPrinter.Entity.Enums;
 using LottoSheli.SendPrinter.Repository;
 using LottoSheli.SendPrinter.Settings;
-using LottoSheli.SendPrinter.SlipReader;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -236,18 +234,19 @@ namespace LottoSheli.SendPrinter.Remote
 
         private Task<Bitmap> PrepareScanImage(RecognitionJob job)
         {
-            var ct = _ctsrc.Token;
-            return Task.Run(() =>
-            {
-                ct.ThrowIfCancellationRequested();
-                using Bitmap scan = job.Scan;
-                if (null == scan)
-                    throw new InvalidOperationException($"Bitmap expected for sending. Got NULL");
-                var gdb = new GrayDividingBlender();
-                var otsu = new OtsuThreshold();
-                using Bitmap afterBlender = gdb.Apply(scan);
-                return otsu.Apply(afterBlender);
-            }, ct);
+            throw new NotImplementedException();
+            //var ct = _ctsrc.Token;
+            //return Task.Run(() =>
+            //{
+            //    ct.ThrowIfCancellationRequested();
+            //    using Bitmap scan = job.Scan;
+            //    if (null == scan)
+            //        throw new InvalidOperationException($"Bitmap expected for sending. Got NULL");
+            //    var gdb = new GrayDividingBlender();
+            //    var otsu = new OtsuThreshold();
+            //    using Bitmap afterBlender = gdb.Apply(scan);
+            //    return otsu.Apply(afterBlender);
+            //}, ct);
         }
 
         private TicketPayloadData CreatePayload(RecognitionJob job)

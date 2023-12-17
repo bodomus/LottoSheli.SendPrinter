@@ -1,0 +1,12 @@
+{
+  "Scanner_SnippetRectangle_X": 0,
+  "Scanner_SnippetRectangle_Y": 0,
+  "Scanner_SnippetRectangle_Width": 330,
+  "Scanner_SnippetRectangle_Height": 85,
+  "Scanner_SnippetSide": 1,
+  "Scanner_ImageAdjusments_Brightness": 0,
+  "Scanner_ImageAdjusments_Contrast": 0,
+  "AutoupdateWinnersTemplate": true,
+  "CollectTrainingData": false,
+  "MaxTemplateVariants": 5
+}

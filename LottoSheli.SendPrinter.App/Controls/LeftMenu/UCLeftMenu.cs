@@ -4,8 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 using FontAwesome.Sharp;
-
-using LottoSheli.SendPrinter.App.Controls.Basic;
+using LottoSheli.SendPrinter.App.Controls.LeftMenu;
 using LottoSheli.SendPrinter.App.EventArg;
 using LottoSheli.SendPrinter.DTO;
 using LottoSheli.SendPrinter.Entity;

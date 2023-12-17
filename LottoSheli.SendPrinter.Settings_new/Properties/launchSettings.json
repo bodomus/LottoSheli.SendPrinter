@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "UAM.VerifyEmployee": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 ﻿using LiteDB;
 using LottoSheli.SendPrinter.Entity;
 using LottoSheli.SendPrinter.Settings;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace LottoSheli.SendPrinter.Repository.LiteDB
         private const int MAX_FILE_RETRIES = 3;
         private const int FILE_READ_TIMEOUT = 100;
         private readonly object _lock = new object();
-        private string DIRNAME => Path.Combine(SettingsManager.LottoHome, SCANDIR);
+        private string DIRNAME { get; set; } 
         
         private ILogger<RecognitionJobRepositoryLiteDB> _logger;
 
@@ -34,9 +35,12 @@ namespace LottoSheli.SendPrinter.Repository.LiteDB
         public event EventHandler<RecognitionJob> Updated;
         public event EventHandler<RecognitionJob> Removed;
 
-        public RecognitionJobRepositoryLiteDB(IDBCreatorFactory dBCreatorFactory, ILogger<RecognitionJobRepositoryLiteDB> logger) : base(dBCreatorFactory)
+        public RecognitionJobRepositoryLiteDB(IDBCreatorFactory dBCreatorFactory, ILogger<RecognitionJobRepositoryLiteDB> logger, IConfiguration config) : base(dBCreatorFactory)
         {
             _logger = logger;
+
+            DIRNAME = Path.Combine((config.GetSection("CommonSettings") as CommonSettings).LottoHomeDirectory, SCANDIR);
+
             InitializeFolder();
         }
 

@@ -10,14 +10,10 @@ using LottoSheli.SendPrinter.Core.Controls;
 using LottoSheli.SendPrinter.Core.Enums;
 using LottoSheli.SendPrinter.Core.Monitoring;
 using LottoSheli.SendPrinter.Entity.Enums;
-using LottoSheli.SendPrinter.Printer;
-using LottoSheli.SendPrinter.Printer.Devices;
-using LottoSheli.SendPrinter.Remote;
 using LottoSheli.SendPrinter.Repository;
-using LottoSheli.SendPrinter.Scanner;
-using LottoSheli.SendPrinter.Scanner.Panini;
-using LottoSheli.SendPrinter.Scanner.V2;
 using LottoSheli.SendPrinter.Settings;
+using LottoSheli.SendPrinter.App.Controls.LeftMenu;
+using LottoSheli.SendPrinter.Settings.OcrSettings;
 
 namespace LottoSheli.SendPrinter.App
 {
@@ -26,18 +22,13 @@ namespace LottoSheli.SendPrinter.App
         private delegate void SafeShowMessageDelegate(string source, LogLevel logLevel);
         private readonly ILogger<MainView> _logger;
         private readonly IDictionary<LeftMenuItemType, UserControl> _subControls;
-        private readonly IScannerProcessor _scannerProcessor;
-        private readonly IScanner _scanner;
         private readonly ILoggerFactory _loggerFactory;
-        private readonly ISettings _settings;
+        private readonly ISettingsFactory _settings;
         private readonly IOcrSettings _ocrSettings;
-        private IPrinterDevice _printerDevice;
         private readonly IUserRepository _users;
         private ISessionRepository _sessionsRepo;
         private SynchronizationContext _syncContext;
-        private ISendingQueue _sendingQueue;
         private ISequenceService _sequenceService;
-        private IPrinterQueueService _printerQueueService;
         private IMonitoringService _monitoringService;
 
         private UserControl _activeContent;
@@ -46,7 +37,7 @@ namespace LottoSheli.SendPrinter.App
             ScannerMode scannerMode
             ,ILoggerFactory loggerFactory
             ,Control logControl
-            ,ISettings settings
+            ,ISettingsFactory settings
             ,ISessionRepository sessionsRepo
             ,IUserRepository users
             )
@@ -56,30 +47,15 @@ namespace LottoSheli.SendPrinter.App
             _logger = _loggerFactory.CreateLogger<MainView>();
             _users = users;
             _sessionsRepo = sessionsRepo;
-
             if (rightToLeftDirection == RightToLeft.Yes)
             {
                 RightToLeft = RightToLeft.Yes;
             }
+            var s = settings.GetScannerSettings();
+            s.Scanner_ImageAdjusments_Brightness = 0;
+            s.Scanner_ImageAdjusments_Contrast = 0;
+            settings.SaveScannerSettings(s);
 
-            _settings.Scanner_ImageAdjusments_Brightness = 0;
-            _settings.Scanner_ImageAdjusments_Contrast = 0;
-            _settings.Save();
-
-            _scannerProcessor = scannerMode switch
-            {
-                ScannerMode.Normal => new PaniniScannerProcessor(Handle, _loggerFactory.CreateLogger<PaniniScannerProcessor>(), 
-                    _loggerFactory.CreateLogger<IScannerCore>(), _settings, ShowMessageSafe),
-                ScannerMode.Demo => new DemoScannerProcessor(ReceiveFiles, _loggerFactory.CreateLogger<DemoScannerProcessor>(), 
-                    _loggerFactory.CreateLogger<IScannerCore>(), ShowMessageSafe),
-                ScannerMode.Controller => new DemoScannerProcessor(ReceiveFiles, _loggerFactory.CreateLogger<DemoScannerProcessor>(),
-                    _loggerFactory.CreateLogger<IScannerCore>(), ShowMessageSafe),
-                _ => throw new NotSupportedException(scannerMode.ToString())
-            };
-
-            _scanner = ScannerMode.Controller == scannerMode 
-                ? new ScannerController(Handle, _loggerFactory.CreateLogger<IScannerController>(), _settings) 
-                : _scannerProcessor.Core;
 
             _subControls = new Dictionary<LeftMenuItemType, UserControl>();
 
@@ -93,7 +69,7 @@ namespace LottoSheli.SendPrinter.App
                 _logger.LogInformation("    {0} - {1}", name, ver.FileVersion);
             }
 
-            _logger.LogInformation($"OCR Settings profile name: {_ocrSettings?.OcrSettingsProfileName}");
+            //_logger.LogInformation($"OCR Settings profile name: {_ocrSettings?.OcrSettingsProfileName}");
 
             InitContent(logControl);
 
@@ -105,20 +81,18 @@ namespace LottoSheli.SendPrinter.App
 
             _syncContext = SynchronizationContext.Current;
             _logger.LogInformation("Started LottoSendPrinter{0}Version info:", Environment.NewLine);
+            LoadContent();
         }
 
-        #region IPrinterDevice Events
-
-        private void PrinterDevice_PrinterValidationFailed(object sender, PrinterValidationFailedEventArgs e)
+        private void LoadContent()
         {
-            _syncContext.Send(arg =>
-            {
-                var genericMessage = string.Format("Error occured during printer {0} validation. Please change the printer in settings.", e.Error.PrinterName);
-                _logger.LogError("{0} |{1}{2}", genericMessage, Environment.NewLine, e.Error.Message);
-                MessageBox.Show(this, genericMessage, "Printer error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }, null);
+
+            foreach (var contrl in _subControls)
+                pnlContent.Controls.Add(contrl.Value);
+
+            InitConnectionStateControl(Role.D7);
+            InitConnectionStateControl(Role.D9);
         }
-#endregion IPrinterDevice Events
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -186,24 +160,13 @@ namespace LottoSheli.SendPrinter.App
 
         private void InitConnectionStateControl(Role serverRole) 
         {
-            //var stateCtrl = new UCConnectionState
-            //{
-            //    TargetName = serverRole.ToString(),
-            //    Dock = DockStyle.Bottom
-            //};
-            
-            //pnlConnections.Controls.Add(stateCtrl);
+            var stateCtrl = new UCConnectionState
+            {
+                TargetName = serverRole.ToString(),
+                Dock = DockStyle.Bottom
+            };
 
-            //var cmdData = new SubscribeClientStateCommandData
-            //{
-            //    StateHandler = (state) =>
-            //    {
-            //        stateCtrl.State = state;
-            //        return true;
-            //    },
-            //    ServerRole = serverRole,
-            //};
-            //stateCtrl.State = _commandFactory.ExecuteCommand<ISubscribeClientStateCommand, SubscribeClientStateCommandData, RemoteConnectionState>(cmdData);
+            pnlConnections.Controls.Add(stateCtrl);
         }
 
         private void UcAuthorize_Rejected(object sender, EventArgs e)

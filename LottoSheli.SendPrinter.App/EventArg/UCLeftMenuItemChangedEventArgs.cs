@@ -1,5 +1,5 @@
 ﻿using LottoSheli.SendPrinter.App.Controls;
-using LottoSheli.SendPrinter.App.Controls.Basic;
+using LottoSheli.SendPrinter.App.Controls.LeftMenu;
 
 namespace LottoSheli.SendPrinter.App.EventArg
 {

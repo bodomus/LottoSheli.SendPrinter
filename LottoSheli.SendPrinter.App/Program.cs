@@ -7,7 +7,7 @@ using LottoSheli.SendPrinter.Bootstraper;
 using LottoSheli.SendPrinter.Settings;
 using LottoSheli.SendPrinter.Repository;
 using LottoSheli.SendPrinter.App.View;
-
+using LottoSheli.SendPrinter.Settings.ScannerSettings;
 
 namespace LottoSheli.SendPrinter.App
 {
@@ -37,7 +37,7 @@ namespace LottoSheli.SendPrinter.App
                     await using (var objectsFactory = new AbstractObjectsFactory(config))
                     {
                         var settingsFactory = objectsFactory.GetSettingsFactory();
-                        ISettings settings = settingsFactory.GetSettings();
+                        ScannerSettings settings = settingsFactory.GetScannerSettings();
                         IUserRepository users = objectsFactory.GetUserRepository();
                         ISessionRepository sessionRepository = objectsFactory.GetSessionRepository();
                         LoginView formLogin = (LoginView)objectsFactory.GetFormFactory().CreateLoginForm();
@@ -46,28 +46,17 @@ namespace LottoSheli.SendPrinter.App
                         var loginResult = formLogin.Presenter.GetResult();
                         if (formLogin.DialogResult == DialogResult.OK)
                         {
-                            IOcrSettings ocrSettings = settingsFactory.GetOcrSettings();
-                            ICommonSettings commonSettings = settingsFactory.GetCommonSettings();
                             var logFactory = objectsFactory.GetLoggerFactory();
                             var conf = LogManager.Configuration;
 
                             var formMain = new MainView(
-                                loginResult.RightToLeft,
-                                loginResult.Mode,
-                                objectsFactory.GetLoggerFactory(),
-                                objectsFactory.GetLoggerFactory().CreateLoggerUIControl(),
-                                settings
-                                //,monService,
+                                loginResult.RightToLeft
+                                ,loginResult.Mode
+                                ,objectsFactory.GetLoggerFactory()
+                                ,objectsFactory.GetLoggerFactory().CreateLoggerUIControl()
+                                ,settingsFactory
                                 ,sessionRepository
                                 ,users
-                                //,null
-                                //,ocrSettings
-                                //,objectsFactory.GetCommandFactory()
-                                //,objectsFactory.GetRecognitionJobFactory()
-                                //,objectsFactory.GetSendingQueue()
-                                //,objectsFactory.GetRecognitionJobQueue()
-                                //,objectsFactory.GetSequenceService()
-                                //,objectsFactory.GetService<IPrinterQueueService>()
                                 );
 
                             Application.Run(formMain);

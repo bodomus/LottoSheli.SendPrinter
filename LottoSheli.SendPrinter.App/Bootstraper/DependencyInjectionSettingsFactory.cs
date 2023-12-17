@@ -1,6 +1,8 @@
 using LottoSheli.SendPrinter.Settings;
+using LottoSheli.SendPrinter.Settings.OcrSettings;
+using LottoSheli.SendPrinter.Settings.RemoteSettings;
+using LottoSheli.SendPrinter.Settings.ScannerSettings;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace LottoSheli.SendPrinter.Bootstraper
 {
@@ -12,19 +14,26 @@ namespace LottoSheli.SendPrinter.Bootstraper
             _serviceProviderStrategy = serviceProviderStrategy;
         }
 
+        public ScannerSettings GetScannerSettings()
+        {
+            return _serviceProviderStrategy().GetRequiredService<ScannerSettingsService>().Get();
+        }
+
+        public void SaveScannerSettings(ScannerSettings settings)
+        {
+            _serviceProviderStrategy().GetRequiredService<ScannerSettingsService>().Save(settings);
+        }
+
         public IOcrSettings GetOcrSettings()
         {
             return _serviceProviderStrategy().GetRequiredService<IOcrSettings>();
         }
 
-        public ISettings GetSettings()
+        public IRemoteSettings GetRemoteSettings()
         {
-            return _serviceProviderStrategy().GetRequiredService<ISettings>();
+            return _serviceProviderStrategy().GetRequiredService<IRemoteSettings>();
         }
 
-        public ICommonSettings GetCommonSettings()
-        {
-            return _serviceProviderStrategy().GetRequiredService<ICommonSettings>();
-        }
+        
     }
 }

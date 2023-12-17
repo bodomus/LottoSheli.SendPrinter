@@ -16,6 +16,7 @@
     <ProjectReference Include="..\LottoSheli.SendPrinter.DTO\LottoSheli.SendPrinter.DTO.csproj" />
     <ProjectReference Include="..\LottoSheli.SendPrinter.Entity\LottoSheli.SendPrinter.Entity.csproj" />
     <ProjectReference Include="..\LottoSheli.SendPrinter.Repository\LottoSheli.SendPrinter.Repository.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Settings\LottoSheli.SendPrinter.Settings.csproj" />
   </ItemGroup>
 
 </Project>

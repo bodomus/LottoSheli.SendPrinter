@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using LottoSheli.SendPrinter.Core.JsonConverters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using LottoSheli.SendPrinter.Core.JsonConverters;
-
+using System.Dynamic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LottoSheli.SendPrinter.Entity
 {
@@ -15,20 +17,20 @@ namespace LottoSheli.SendPrinter.Entity
         /// <summary>
         /// UID
         /// </summary>
-        [Newtonsoft.Json.JsonIgnore]
+        [JsonIgnore]
         public override int Id { get; set; }
 
         /// <summary>
         /// Constant Name
         /// </summary>
-        [Newtonsoft.Json.JsonIgnore]
+        [JsonIgnore]
         public string ConstantName { get; set; }
 
 
         /// <summary>
         /// Constant Value
         /// </summary>
-        [Newtonsoft.Json.JsonIgnore]
+        [JsonIgnore]
         public string ConstantValue { get; set; }
 
 

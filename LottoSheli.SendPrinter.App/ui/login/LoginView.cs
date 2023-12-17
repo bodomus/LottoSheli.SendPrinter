@@ -58,7 +58,7 @@ namespace LottoSheli.SendPrinter.App.View
 
         private void cbVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SettingsManager.OcrSettingsVersion = cbVersion.Text;
+            //SettingsManager.OcrSettingsVersion = cbVersion.Text;
         }
 
         public int ModeSelectedIndex

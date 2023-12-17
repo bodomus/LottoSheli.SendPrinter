@@ -1,6 +1,6 @@
-﻿using LottoSheli.SendPrinter.DTO.Remote;
-using LottoSheli.SendPrinter.OCR.Google;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
+using LottoSheli.SendPrinter.DTO.Remote;
 
 namespace LottoSheli.SendPrinter.Remote
 {
@@ -14,6 +14,6 @@ namespace LottoSheli.SendPrinter.Remote
 
         Task<bool> UpdateTicketDate(TicketData ticketData);
 
-        Task<bool> SendRecognitionMismatch(RecognizeMismatch ticketData);
+        //Task<bool> SendRecognitionMismatch(RecognizeMismatch ticketData);
     }
 }

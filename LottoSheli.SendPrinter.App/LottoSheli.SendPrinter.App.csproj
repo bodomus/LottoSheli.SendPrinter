@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LottoSheli.SendPrinter.DTO\LottoSheli.SendPrinter.DTO.csproj" />
+    <ProjectReference Include="..\LottoSheli.SendPrinter.Remote\LottoSheli.SendPrinter.Remote.csproj" />
     <ProjectReference Include="..\LottoSheli.SendPrinter.Repository.LiteDB\LottoSheli.SendPrinter.Repository.LiteDB.csproj" />
     <ProjectReference Include="..\LottoSheli.SendPrinter.Repository\LottoSheli.SendPrinter.Repository.csproj" />
     <ProjectReference Include="..\LottoSheli.SendPrinter.Settings\LottoSheli.SendPrinter.Settings.csproj" />
@@ -35,32 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controls\LeftMenu\" />
-    <Folder Include="DllStub\" />
     <Folder Include="EventArg\" />
     <Folder Include="Attributes\" />
     <Folder Include="Extensions\" />
     <Folder Include="Resources\" />
     <Folder Include="Properties\" />
-    <Folder Include="ui\main\main\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="LottoSheli.SendPrinter.Commands">
-      <HintPath>DllStub\LottoSheli.SendPrinter.Commands.dll</HintPath>
-    </Reference>
-    <Reference Include="LottoSheli.SendPrinter.OCR">
-      <HintPath>DllStub\LottoSheli.SendPrinter.OCR.dll</HintPath>
-    </Reference>
-    <Reference Include="LottoSheli.SendPrinter.Printer">
-      <HintPath>DllStub\LottoSheli.SendPrinter.Printer.dll</HintPath>
-    </Reference>
-    <Reference Include="LottoSheli.SendPrinter.Remote">
-      <HintPath>DllStub\LottoSheli.SendPrinter.Remote.dll</HintPath>
-    </Reference>
-    <Reference Include="LottoSheli.SendPrinter.Scanner">
-      <HintPath>DllStub\LottoSheli.SendPrinter.Scanner.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

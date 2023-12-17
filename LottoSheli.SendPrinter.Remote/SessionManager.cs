@@ -2,7 +2,6 @@
 using LottoSheli.SendPrinter.Entity;
 using LottoSheli.SendPrinter.Entity.Enums;
 using LottoSheli.SendPrinter.Repository;
-using LottoSheli.SendPrinter.Settings.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;

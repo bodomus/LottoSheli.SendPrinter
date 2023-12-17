@@ -1,9 +1,11 @@
 ﻿using LiteDB;
 using LiteDB.Engine;
 using LottoSheli.SendPrinter.Settings;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -26,10 +28,14 @@ namespace LottoSheli.SendPrinter.Repository.LiteDB
         public bool IsDisposed => _disposed > 0;
 
         public event EventHandler<DBType> ContextChanged;
+        private IConfiguration _config;
+        private string _lottoDirectory;
 
-        public DBCreatorFactory(IDBBackupService backupService)
+        public DBCreatorFactory(IDBBackupService backupService, IConfiguration config)
         {
             _backupService = backupService;
+            _config = config;
+            _lottoDirectory = config.GetRequiredSection("CommonSettings")["LottoHomeDirectory"];
             InitLockers();
             //InitDbCache();
         }
@@ -149,7 +155,7 @@ namespace LottoSheli.SendPrinter.Repository.LiteDB
 
         private ConnectionString CreateConnectionString(string filename, string password, ConnectionType connType = ConnectionType.Shared) => new ConnectionString
         {
-            Filename = Path.Combine(SettingsManager.LottoHome, filename),
+            Filename = Path.Combine( filename),
             Password = password,
             Connection = connType
         };

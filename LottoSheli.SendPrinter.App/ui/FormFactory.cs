@@ -1,6 +1,7 @@
 ﻿using LottoSheli.SendPrinter.App.ui.login;
 using LottoSheli.SendPrinter.App.View;
 using LottoSheli.SendPrinter.Settings;
+using LottoSheli.SendPrinter.Settings.OcrSettings;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,6 @@ namespace LottoSheli.SendPrinter.App.ui
         public FormFactory(Func<IServiceProvider> serviceProviderStrategy)
         {
             _serviceProviderStrategy = serviceProviderStrategy;
-        }
-
-        public IOcrSettings GetOcrSettings()
-        {
-            return _serviceProviderStrategy().GetRequiredService<IOcrSettings>();
         }
 
         public ILoginView CreateLoginForm()
